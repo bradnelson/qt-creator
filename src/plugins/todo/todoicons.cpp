@@ -81,6 +81,8 @@ QIcon toolBarIcon(IconType type)
         return Icon({{":/todoplugin/images/bug.png", Theme::IconsInterruptToolBarColor}}).icon();
     case IconType::Todo:
         return Icon({{":/todoplugin/images/tasklist.png", Theme::IconsRunToolBarColor}}).icon();
+    case IconType::Copy:
+        return Icon({{":/todoplugin/images/copy.png", Theme::IconsRunToolBarColor}}).icon();
     default:
     case IconType::Error:
         return Icons::CRITICAL_TOOLBAR.icon();

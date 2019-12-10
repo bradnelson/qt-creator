@@ -36,7 +36,8 @@ enum class IconType {
     Error,
     Warning,
     Bug,
-    Todo
+    Todo,
+    Copy
 };
 
 QIcon icon(IconType type);

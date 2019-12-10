@@ -88,6 +88,8 @@ private:
     void createScopeButtons();
     void freeScopeButtons();
 
+    void copyVisibleTodos();
+
     QModelIndex selectedModelIndex();
     QModelIndex nextModelIndex();
     QModelIndex previousModelIndex();
@@ -105,6 +107,7 @@ private:
     QSortFilterProxyModel *m_filteredTodoItemsModel;
     const Settings *m_settings;
     QToolButtonList m_filterButtons;
+    QToolButton *m_copyButton;
 };
 
 } // namespace Internal

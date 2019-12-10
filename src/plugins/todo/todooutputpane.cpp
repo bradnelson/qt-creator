@@ -37,6 +37,8 @@
 #include <QToolButton>
 #include <QButtonGroup>
 #include <QSortFilterProxyModel>
+#include <QClipboard>
+#include <QGuiApplication>
 
 namespace Todo {
 namespace Internal {
@@ -286,6 +288,14 @@ void TodoOutputPane::createScopeButtons()
 
         m_filterButtons.append(button);
     }
+
+    m_copyButton = new QToolButton();
+    m_copyButton->setCheckable(false);
+    m_copyButton->setText("Copy");
+    m_copyButton->setToolTip("Copy Visible TODOs");
+    m_copyButton->setIcon(toolBarIcon(IconType::Copy));
+    m_copyButton->setToolButtonStyle(Qt::ToolButtonIconOnly);
+    connect(m_copyButton, &QToolButton::clicked, this, &TodoOutputPane::copyVisibleTodos);
 }
 
 void TodoOutputPane::freeScopeButtons()
@@ -297,6 +307,20 @@ void TodoOutputPane::freeScopeButtons()
     delete m_spacer;
 
     qDeleteAll(m_filterButtons);
+}
+
+void TodoOutputPane::copyVisibleTodos()
+{
+    QClipboard *clipboard = QGuiApplication::clipboard();
+
+    QString filteredTodoList;
+
+    for (int i=0; i < m_filteredTodoItemsModel->rowCount(); i++)
+    {
+        filteredTodoList += m_filteredTodoItemsModel->data(m_filteredTodoItemsModel->index(i, 0)).toString() + QString("\n");
+    }
+
+    clipboard->setText(filteredTodoList);
 }
 
 QModelIndex TodoOutputPane::selectedModelIndex()
